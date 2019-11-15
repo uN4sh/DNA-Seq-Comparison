@@ -32,5 +32,7 @@ Sequence initSeq(char* fic) {
 	
 	seq.sequence = malloc(seq.l*sizeof(char));
 	fscanf(f, "%s", seq.sequence);
+	
+	fclose(f);
 	return seq;
 }
