@@ -1,14 +1,37 @@
 #include "sequence.h"
 
-int compterCarac(char* fic) {
+FILE *ouvrirFic(int i) {
+	char fic[25];
+	if (i<10) 
+		sprintf(fic, "sequences_ADN/seq0%d.txt",i);
+	else 
+		sprintf(fic, "sequences_ADN/seq%d.txt",i); 
 
-	// sprintf(chaine, seq0%d.txt, i); inferieur à 10, et supérieur à 10 sans 0
 	FILE *f = fopen(fic, "r");
 	if(f == NULL) {
 		fprintf(stderr,"Echec ouverture fichier\n");
 		exit(EXIT_FAILURE); 
 	}
 	
+	return f;
+}
+
+
+int compterCarac(int nf) {
+	FILE *f = ouvrirFic(nf);
+	/*
+	char fic[25];
+	if (nf<10) 
+		sprintf(fic, "sequences_ADN/seq0%d.txt",nf);
+	else 
+		sprintf(fic, "sequences_ADN/seq%d.text",nf); 
+
+	FILE *f = fopen(fic, "r");
+	if(f == NULL) {
+		fprintf(stderr,"Echec ouverture fichier\n");
+		exit(EXIT_FAILURE); 
+	}
+	*/
 	int cmp = 0;
 	int c = fgetc(f);
 	while (c != EOF) {
@@ -20,9 +43,15 @@ int compterCarac(char* fic) {
 	return cmp;
 }
 
-Sequence initSeq(char* fic) {
+Sequence initSeq(int nf) {
 	Sequence seq;
-	seq.l = compterCarac(fic);
+	seq.l = compterCarac(nf);
+
+	char fic[25];
+	if (nf<10) 
+	  sprintf(fic, "sequences_ADN/seq0%d.txt",nf);
+	else 
+	  sprintf(fic, "sequences_ADN/seq%d.text",nf);
 	
 	FILE *f = fopen(fic, "r");
 	if(f == NULL) {
