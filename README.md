@@ -33,6 +33,8 @@ Distance D1 simplifiée, toujours autant de comparaisons
 
 **compterCarac :** prend le numéro de fic en argument, ouvre le fichier, compte les caractères par fgetc, close le fichier et return le nombre de caracts
 
+*// On pourrait utiliser strlen non ?*
+
 **initSeq :** créé une structure séquence, compte les caracs, réouvre le fichier et stocke le contenu du fichier dans la char* de la séquence, return la séquence avec l et char*
 
 
@@ -49,4 +51,4 @@ boucle for : inférieur à la plus grande des deux chaines, fait les comparaison
 deuxieme boucle : valeur absolue de la différence de taille, ajout des 1.5 des blancs
 return un float pour D1
 
-// on pourrait changer la fct en Distance, prendre 2 Séquences en argument et return la struct distance 
+*// on pourrait changer la fct en Distance, prendre 2 Séquences en argument et return la struct distance*
