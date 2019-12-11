@@ -11,6 +11,7 @@ int compD1(int cv, int cw) {
 	return 0;
 }
 
+
 float distanceD1(int v, int w) {
 	float dist = 0.0;
 	int vl = compterCarac(v);
@@ -50,4 +51,22 @@ float distanceD1(int v, int w) {
 	fclose(fv);
 	fclose(fw);
 	return dist;
+}
+
+
+float distanceD1v2(int v, int w) {
+	Distance D1;
+	//D1 = malloc(sizeof(Distance));
+	D1.V = initSeq(v);
+	D1.W = initSeq(w);
+		
+	for (int i = 0; i < D1.V.l || i < D1.W.l; i++) 
+	{
+		D1.dist += compD1(D1.V.sequence[i], D1.W.sequence[i]);
+	}
+	
+	for (int i = 0; i < fabs(D1.V.l - D1.W.l); i++)
+		D1.dist += 1.5;
+	
+	return D1.dist;
 }
