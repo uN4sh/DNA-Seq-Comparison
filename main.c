@@ -12,11 +12,13 @@ int main() {
 	}
 	printf("\n");
 	
+	free(Seq3.sequence);
 	
+	int v = 7;
+	int w = 1;
+	printf("Distance d'édition Seq%d et Seq%d = %.1f\n", v, w, distanceD1(v, w));
+	printf("Distance d'édition v2 Seq%d et Seq%d = %.1f\n", v, w, distanceD1v2(v, w));
 	
-	int v = 60;
-	int w = 61;
-	printf("Distance d'édition Seq%d et Seq%d = %f\n", v, w, distanceD1(v, w));
-	
+	//free(D1);
 	return 0;
 }

@@ -2,11 +2,9 @@
 
 FILE *ouvrirFic(int i) {
 	char fic[25];
-	if (i<10) 
-		sprintf(fic, "sequences_ADN/seq0%d.txt",i);
-	else 
-		sprintf(fic, "sequences_ADN/seq%d.txt",i); 
 
+	sprintf(fic, "sequences_ADN/seq%02d.txt",i);
+	
 	FILE *f = fopen(fic, "r");
 	if(f == NULL) {
 		fprintf(stderr,"Echec ouverture fichier\n");
@@ -19,19 +17,7 @@ FILE *ouvrirFic(int i) {
 
 int compterCarac(int nf) {
 	FILE *f = ouvrirFic(nf);
-	/*
-	char fic[25];
-	if (nf<10) 
-		sprintf(fic, "sequences_ADN/seq0%d.txt",nf);
-	else 
-		sprintf(fic, "sequences_ADN/seq%d.text",nf); 
-
-	FILE *f = fopen(fic, "r");
-	if(f == NULL) {
-		fprintf(stderr,"Echec ouverture fichier\n");
-		exit(EXIT_FAILURE); 
-	}
-	*/
+	
 	int cmp = 0;
 	int c = fgetc(f);
 	while (c != EOF) {
@@ -46,19 +32,9 @@ int compterCarac(int nf) {
 Sequence initSeq(int nf) {
 	Sequence seq;
 	seq.l = compterCarac(nf);
+	
+	FILE *f = ouvrirFic(nf);
 
-	char fic[25];
-	if (nf<10) 
-	  sprintf(fic, "sequences_ADN/seq0%d.txt",nf);
-	else 
-	  sprintf(fic, "sequences_ADN/seq%d.text",nf);
-	
-	FILE *f = fopen(fic, "r");
-	if(f == NULL) {
-		fprintf(stderr,"Echec ouverture fichier init\n");
-		exit(EXIT_FAILURE);
-	}
-	
 	seq.sequence = malloc(seq.l*sizeof(char));
 	fscanf(f, "%s", seq.sequence);
 	
