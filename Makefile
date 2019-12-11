@@ -1,10 +1,11 @@
-run : all
-	./main
-	
-all: main
+run1: main1
+	./main1
 
-main: sequence.o distance.o main.o
-	gcc -Wall -g -o main main.o sequence.c distance.o
+debug1: main1
+	valgrind ./main1
+
+main1: sequence.o distance.o main.o
+	gcc -Wall -g -o main1 main.o sequence.c distance.o
 
 main.o: main.c sequence.h distance.h
 	gcc -Wall -g -c main.c
@@ -17,5 +18,5 @@ sequence.o: sequence.c sequence.h
 
 clean:
 	rm -f *.o
-	rm -f main
+	rm -f main1
 	ls -l
