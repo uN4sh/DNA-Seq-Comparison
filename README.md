@@ -7,10 +7,10 @@ Structure séquence avec un char* et la longueur de la séquence
 Fonction d'initialisation (compte les caractères et stocke la chaîne dans la structure)
 
 **Cons :
-Double ouverture / fermeture de fichier
+Double ouverture / fermeture de fichier**
 
 **A ajouter : 
-sprintf pour prendre un i en argument et pouvoir init la sequence en fonction du i 
+sprintf pour prendre un i en argument et pouvoir init la sequence en fonction du i**
  
  
  
@@ -23,6 +23,8 @@ Distance D1 faite à l'arrache // Surement beaucoup trop de comparaisons
 
 
 ### 11.12
+
+Distance D1 simplifiée, toujours autant de comparaisons
 
 #### **SEQUENCE.H**
 **Struct sequence :** un char* pour l'ADN et un int l pour la longueur de la chaîne
