@@ -39,9 +39,12 @@ Distance D1 faite à l'arrache // Surement beaucoup trop de comparaisons
 **Struct distance :** deux struct Séquence et un float pour la distance entre les 2
 
 **compD1 :** comparateur pour D1, prend 2 char en argument et fait les comparaisons selon le tableau de Leveinstein, return un ENTIER
+
 **distanceD1 :**  deux entiers en arguments (numéros de fic), créé une structure distance, initSeq les 2 séquences qu'elle contient
-quence 
+
 boucle for : inférieur à la plus grande des deux chaines, fait les comparaisons
+
 deuxieme boucle : valeur absolue de la différence de taille, ajout des 1.5 des blancs
 return un float pour D1
+
 // on pourrait changer la fct en Distance, prendre 2 Séquences en argument et return la struct distance 
