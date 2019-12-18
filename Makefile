@@ -1,13 +1,13 @@
 run1: main1
-	./main1
+	./main1 sequences_ADN
 
 debug1: main1
-	valgrind ./main1
+	valgrind ./main1 sequences_ADN
 
 main1: sequence.o distance.o main.o
 	gcc -Wall -g -o main1 main.o sequence.c distance.o
 
-main.o: main.c sequence.h distance.h
+main1.o: main1.c sequence.h distance.h
 	gcc -Wall -g -c main.c
 	
 distance.o: distance.c sequence.h distance.h
