@@ -8,6 +8,6 @@ struct Sequence {
 };
 typedef struct Sequence Sequence;
 
-FILE *ouvrirFic(int i);
-Sequence initSeq(int nf);
-int compterCarac(int nf);
+FILE *ouvrirFic(int i, char** argv);
+Sequence initSeq(int nf, char** argv);
+int compterCarac(int nf, char** argv);

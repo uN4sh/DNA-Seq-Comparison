@@ -1,9 +1,9 @@
 #include "sequence.h"
 
-FILE *ouvrirFic(int i) {
+FILE *ouvrirFic(int i, char** argv) {
 	char fic[25];
 
-	sprintf(fic, "sequences_ADN/seq%02d.txt",i);
+	sprintf(fic, "%s/seq%02d.txt", argv[1], i);
 	
 	FILE *f = fopen(fic, "r");
 	if(f == NULL) {
@@ -15,8 +15,8 @@ FILE *ouvrirFic(int i) {
 }
 
 
-int compterCarac(int nf) {
-	FILE *f = ouvrirFic(nf);
+int compterCarac(int nf, char** argv) {
+	FILE *f = ouvrirFic(nf, argv);
 	
 	int cmp = 0;
 	int c = fgetc(f);
@@ -29,15 +29,17 @@ int compterCarac(int nf) {
 	return cmp;
 }
 
-Sequence initSeq(int nf) {
+Sequence initSeq(int nf, char** argv) {
 	Sequence seq;
-	seq.l = compterCarac(nf);
-	
-	FILE *f = ouvrirFic(nf);
+	seq.l = compterCarac(nf, argv);
+	FILE *f = ouvrirFic(nf, argv);
 
-	seq.sequence = malloc(seq.l*sizeof(char));
+	seq.sequence = malloc( (seq.l+1) *sizeof(char)); //+1 pour le \O en fin de chaîne
+	
 	fscanf(f, "%s", seq.sequence);
 	
 	fclose(f);
 	return seq;
 }
+
+// Libération de mémoire à ajouter
