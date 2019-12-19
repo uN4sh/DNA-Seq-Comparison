@@ -27,9 +27,9 @@ L'ensemble de la mémoire allouée aux séquences, aux fichiers et au tableau, s
 
 *// Note : Tout fonctionne avec la distance D1, j'ai pas touché une seule seconde à D2, bien que j'ai déjà toutes les fonctions par un subtil cambriolage*
 
-Ebauche de partie 2 : Fonctions de triFusion mises en oeuvre sur le tableau des distances et création d'un nouveau fichier stockDistancesTriées.txt
+**Ebauche de partie 2 :** Fonctions de triFusion mises en oeuvre sur le tableau des distances et création d'un nouveau fichier stockDistancesTriées.txt
 
-Suite : Il faudrait maintenant faire en sorte de partir de la distance minimum et trouver la séquence S qui a le plus de Dmin avec d'autres séquences, et en faire une famille..
+**Suite :** Il faudrait maintenant faire en sorte de partir de la distance minimum et trouver la séquence S qui a le plus de Dmin avec d'autres séquences, et en faire une famille..
 
 Ou alors faudrait faire D2 mdr..
 
