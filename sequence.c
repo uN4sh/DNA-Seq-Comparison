@@ -1,22 +1,24 @@
 #include "sequence.h"
+// Les librairies stdio et stdlib sont incluses via le header sequence.h
 
-FILE *ouvrirFic(int i, char** argv) {
+FILE *openFic(int i, char** argv) {
+	// Ouvre le fichier associé à l'entier dans le repertoire mis en argument par l'éxecution (ici : sequences_ADN)
 	char fic[25];
-
+	// On écrit dans la chaîne fic le chemin d'accès au fichier de séquences 
 	sprintf(fic, "%s/seq%02d.txt", argv[1], i);
-	
+	// Le %2d assure que les séquences inférieurs à 10 s'écrivent bien "01, 02..."
 	FILE *f = fopen(fic, "r");
 	if(f == NULL) {
 		fprintf(stderr,"Echec ouverture fichier\n");
 		exit(EXIT_FAILURE); 
 	}
-	
 	return f;
 }
 
 
-int compterCarac(int nf, char** argv) {
-	FILE *f = ouvrirFic(nf, argv);
+int charCounter(int nf, char** argv) {
+	// Pour un numéro de séquence donnée, retourne le nombre de caractères que contient son fichier
+	FILE *f = openFic(nf, argv);
 	
 	int cmp = 0;
 	int c = fgetc(f);
@@ -24,22 +26,26 @@ int compterCarac(int nf, char** argv) {
 		cmp++;
 		c = fgetc(f);
 	}
-	
+	// Compteur classique caractère par caractère jusqu'à l'End of file
 	fclose(f);
 	return cmp;
 }
 
 Sequence initSeq(int nf, char** argv) {
+	// Initialise une séquence en lui assignant d'abord sa taille puis sa chaîne de caractères
 	Sequence seq;
-	seq.l = compterCarac(nf, argv);
-	FILE *f = ouvrirFic(nf, argv);
-
-	seq.sequence = malloc( (seq.l+1) *sizeof(char)); //+1 pour le \O en fin de chaîne
-	
+	seq.l = charCounter(nf, argv);
+	FILE *f = openFic(nf, argv);
+	// On alloue la longueur de la séquence +1 pour le caractère de fin de chaîne présent
+	seq.sequence = malloc( (seq.l+1) *sizeof(char));
+	// Puis on écrit la séquence dans la chaîne de caractère
 	fscanf(f, "%s", seq.sequence);
 	
 	fclose(f);
 	return seq;
 }
 
-// Libération de mémoire à ajouter
+void libereSeq(Sequence S) {
+	// Pour une structure Sequence donnée, free de la mémoire allouée à la chaîne ADN
+	free(S.sequence);
+}
