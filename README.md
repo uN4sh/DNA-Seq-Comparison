@@ -25,13 +25,17 @@ Elle ouvrira les fichiers, calculera les distances et les stockera proprement da
 
 L'ensemble de la mémoire allouée aux séquences, aux fichiers et au tableau, sera libérée.
 
-*// Note : Tout fonctionne avec la distance D1, j'ai pas touché une seule seconde à D2, bien que j'ai déjà toutes les fonctions par un subtil cambriolage*
+> *// Note : Tout fonctionne avec la distance D1, j'ai pas touché une seule seconde à D2, bien que j'ai déjà toutes les fonctions par un subtil cambriolage*
 
 **Ebauche de partie 2 :** Fonctions de triFusion mises en oeuvre sur le tableau des distances et création d'un nouveau fichier stockDistancesTriées.txt
 
 **Suite :** Il faudrait maintenant faire en sorte de partir de la distance minimum et trouver la séquence S qui a le plus de Dmin avec d'autres séquences, et en faire une famille..
 
 Ou alors faudrait faire D2 mdr..
+
+> *// Note : Je viens de me rendre compte que tu peux optimiser tes comparaisons pour réduire un peu la fonction avec un if(v==w) : return 0;    if(les cas pour 1) : return 1;    et return 2;*
+
+> *// Aussi pour ajouter les 1.5 des blancs, au lieu de faire une boucle tu peux simplement ajouter à la distance le abs(V.l, W.l)\*1.5*
 
 #### **SEQUENCE.H**
 **Struct Sequence :** Structure séquence comprend la longueur l de la séquence et un tableau de char pour l'ADN
@@ -42,7 +46,7 @@ Ou alors faudrait faire D2 mdr..
 
 **initSeq :** Initialise une séquence en lui assignant d'abord sa taille puis sa chaîne de caractères 
 
-*// Note : double ouverture de fichier ici pour compter puis assigner. On pourrait combiner le tout en une ouverture avec un strlen() ?*
+> *// Note : double ouverture de fichier ici pour compter puis assigner. On pourrait combiner le tout en une ouverture avec un strlen() ?*
 
 **libereSeq :** Pour une structure Sequence donnée, free de la mémoire allouée à la chaîne ADN
 
