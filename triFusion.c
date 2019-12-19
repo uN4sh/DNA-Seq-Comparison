@@ -55,8 +55,9 @@ void triFusion(Distance *All, int g, int d) {
 	}
 }
 
+
 void fileDistancesTriees(Distance *All) {
-	// Création d'un fichier des distances
+	// Création d'un fichier stockDistancesTriées.txt avec l'ensemble des distances triées & séquences associées
 	FILE *fDist = fopen("stockDistancesTriées.txt", "w");
 	if(fDist == NULL) {
 		fprintf(stderr,"Echec lors de la création du fichier du stockage des distances triées\n");
