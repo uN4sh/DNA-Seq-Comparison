@@ -24,7 +24,7 @@ Distance distanceD1(int v, int w, char** argv) {
 	// Initialisation du float distance à 0
 	D1.dist = 0.0;
 	// On effectue les comparaisons en allant jusqu'à la fin de la plus longue chaîne ADN
-	for (int i = 0; i < D1.V.l || i < D1.W.l; i++) 
+	for (int i = 0; i < D1.V.l && i < D1.W.l; i++) 
 	{
 		D1.dist += charCompare(D1.V.sequence[i], D1.W.sequence[i]);
 	}
@@ -71,6 +71,28 @@ void afficheAll(Distance *All, char** argv) {
 			printf("\n");
 		}
 	}
+}
+
+void fileDistances (Distance *All) {
+	// Création d'un fichier des distances
+	FILE *fDist = fopen("stockDistances.txt", "w");
+	if(fDist == NULL) {
+		fprintf(stderr,"Echec lors de la création du fichier du stockage des distances\n");
+		exit(EXIT_FAILURE); 
+	}
+	int k = 0;
+	for (int v = 1; v <= 19; v++)
+	{
+		for (int w = v+1; w <= 20; w++)
+		{
+			fprintf(fDist, "%d %s\t %d %s\t   D_%d_%d :\t%.1f\n", All[k].v, All[k].V.sequence,
+				    All[k].w, All[k].W.sequence, All[k].v, All[k].w, All[k].dist);
+			k++;
+			fprintf(fDist, "\n");
+		}
+	}
+	fclose(fDist);
+	printf("Le fichier stockDistances.txt a été créé avec succès.\n");
 }
 
 void libereMemoire(Distance D) {

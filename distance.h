@@ -36,6 +36,9 @@ void afficherDistance(Distance D);
 void afficheAll(Distance *All, char** argv);
 // Fonctions pour l'affichage et la mise en forme de toutes les distances & séquences associées 
 
+void fileDistances (Distance *All);
+// Création d'un fichier stockDistances.txt avec l'ensemble des distances & séquences associées
+
 void libereMemoire(Distance D);
 // Libère les 2 champs de séquences compris dans une structure Distance
 void libereAll(Distance *All);
