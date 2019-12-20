@@ -9,7 +9,7 @@
 ### 19.12
 Bon, j'ai tout effacé parce que beaucoup de choses ont changé, voilà le résumé du programme :
 
-#### **MAKEFILE**
+#### MAKEFILE
 **make main1** : Compile l'ensemble des fichiers de la partie1
 
 **make run1** : Exécute la partie1
@@ -18,7 +18,7 @@ Bon, j'ai tout effacé parce que beaucoup de choses ont changé, voilà le résu
 
 **make clean** : Supprime l'ensemble des fichiers .o, l'exécutable ainsi que les 2 fichiers textes créés lors de l'éxécution
 
-#### **DEROULEMENT**
+#### DEROULEMENT
 L'exécution de la partie1 créera le fichier stockDistances.txt comprenant l'ensemble des 190 distances calculées ainsi que les séquences numérotées associées.
 
 Elle ouvrira les fichiers, calculera les distances et les stockera proprement dans un tableau de 190 structures "Distance" qu'on peut faire afficher dans le terminal ou laissé dans le fichier texte créé.
@@ -29,7 +29,7 @@ L'ensemble de la mémoire allouée aux séquences, aux fichiers et au tableau, s
 
 **Ebauche de partie 2 :** Fonctions de triFusion mises en oeuvre sur le tableau des distances et création d'un nouveau fichier stockDistancesTriées.txt
 
-#### **Suite :** 
+#### SUITE 
 Il faudrait maintenant faire en sorte de partir de la distance minimum et trouver la séquence S qui a le plus de Dmin avec d'autres séquences, et en faire une famille..
 
 Ou alors faudrait faire D2 mdr..
@@ -40,8 +40,9 @@ Ou alors faudrait faire D2 mdr..
 
 > *Faudrait mettre le int (n° de seq) dans la structure séquence et pas dans celle distance, et faire tous les changements nécessaires pour alléger le tout*
 
+.
 
-#### **SEQUENCE.H**
+#### SEQUENCE.H
 **Struct Sequence :** Structure séquence comprend la longueur l de la séquence et un tableau de char pour l'ADN
 
 **openFic :** Ouvre le fichier associé à l'entier dans le repertoire mis en argument par l'éxecution (ici : sequences_ADN)
@@ -54,7 +55,7 @@ Ou alors faudrait faire D2 mdr..
 
 **libereSeq :** Pour une structure Sequence donnée, free de la mémoire allouée à la chaîne ADN
 
-#### **DISTANCE.H**
+#### DISTANCE.H
 **Struct Distance :** Comprend 2 Struct Séquences (ADN & taille) + n° de séquence associé, ainsi qu'un float pour la distance
 	
 **charCompare :** Comparateur de caractères selon la matrice de distances (Pour D1)
