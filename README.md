@@ -18,7 +18,7 @@ Bon, j'ai tout effacé parce que beaucoup de choses ont changé, voilà le résu
 
 **make clean** : Supprime l'ensemble des fichiers .o, l'exécutable ainsi que les 2 fichiers textes créés lors de l'éxécution
 
-#### **DEROULEMENT ET SUITE**
+#### **DEROULEMENT**
 L'exécution de la partie1 créera le fichier stockDistances.txt comprenant l'ensemble des 190 distances calculées ainsi que les séquences numérotées associées.
 
 Elle ouvrira les fichiers, calculera les distances et les stockera proprement dans un tableau de 190 structures "Distance" qu'on peut faire afficher dans le terminal ou laissé dans le fichier texte créé.
@@ -29,13 +29,17 @@ L'ensemble de la mémoire allouée aux séquences, aux fichiers et au tableau, s
 
 **Ebauche de partie 2 :** Fonctions de triFusion mises en oeuvre sur le tableau des distances et création d'un nouveau fichier stockDistancesTriées.txt
 
-**Suite :** Il faudrait maintenant faire en sorte de partir de la distance minimum et trouver la séquence S qui a le plus de Dmin avec d'autres séquences, et en faire une famille..
+#### **Suite :** 
+Il faudrait maintenant faire en sorte de partir de la distance minimum et trouver la séquence S qui a le plus de Dmin avec d'autres séquences, et en faire une famille..
 
 Ou alors faudrait faire D2 mdr..
 
 > *// Note : Je viens de me rendre compte que tu peux optimiser tes comparaisons pour réduire un peu la fonction avec un if(v==w) : return 0;    if(les cas pour 1) : return 1;    et return 2;*
 
 > *// Aussi pour ajouter les 1.5 des blancs, au lieu de faire une boucle tu peux simplement ajouter à la distance le abs(V.l, W.l)\*1.5*
+
+> *Faudrait mettre le int (n° de seq) dans la structure séquence et pas dans celle distance, et faire tous les changements nécessaires pour alléger le tout*
+
 
 #### **SEQUENCE.H**
 **Struct Sequence :** Structure séquence comprend la longueur l de la séquence et un tableau de char pour l'ADN
