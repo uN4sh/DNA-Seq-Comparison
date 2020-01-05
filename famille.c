@@ -12,22 +12,20 @@ Famille initFamille(int N, float Dmin, int nF, int *t){
 	F.nF = nF;
 	//Remplissage du tableau contenant les numéros des séquences de la famille
 	int j = 0;
-	
 	for (int i = 0; i < 190; i++)
 	{
-		if(t[i] != 0){ 
+		if(t[i] != 0 && j < N){ 
 			F.ns[j] = t[i];
 			j++;
 		}		
-	}	
-
+	}
 	return F;
 }
 
 Famille *creaFamilles(Distance *All){
 	//Creation du tableau contenant les familles, de taille 20 car il ne peut y en avoir plus de 20 (20 séquences et familles de 1)
 	Famille *AllF = malloc (20 * sizeof(Famille));
-	int fCount;
+	int fCount = 0;
 	int dCount = 0;
 	float Dmin;
 	int cptFamille;
@@ -53,7 +51,7 @@ Famille *creaFamilles(Distance *All){
 			dCount = dtemp;		
 			piv = pivot(All, dCount, Dmin, nbDist);
 			dtemp = 0;
-			for (int j = dCount; j < (dCount+d-1); j++)
+			for (int j = dCount; j < (dCount+d); j++)
 			{
 				if((familleCheck(All, j) == 0) && (All[j].v == piv)){
 					All[j].V.check = 1;
@@ -81,8 +79,13 @@ Famille *creaFamilles(Distance *All){
 					}
 				}
 			}
+			
 			AllF[fCount] = initFamille(cptFamille, Dmin, fCount+1, temp);
-			familleRep(AllF[fCount]);
+	
+			printf("%d\n", AllF[fCount].taille);
+			
+			
+			//familleRep(AllF[fCount]);
 			dCount = 0;
 			fCount++;
 		}
@@ -148,7 +151,11 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 		k+=2;
 	}	
 	//On initialise un tableau à double entrées, afin de sauvegarder et de mettre en relation les numéros des sequences et leurs fréquences d'apparition
-	int cpt[nbDist][2];
+	int **cpt = NULL;
+	cpt = malloc (nbDist * sizeof(int*));
+	for (int j = 0; j < nbDist; j++)
+		cpt[j] = malloc (2 * sizeof(int));
+	 
 	for (int j = 0; j < nbDist; j++)
 	{
 		cpt[j][0] = 0;
@@ -180,8 +187,11 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 		}
 	}
 	free(seqList);
-	
-	
+	for (int i = 0; i < nbDist; i++)
+	{
+		free(cpt[i]);
+	}	
+	free(cpt);
 	return pivot;	
 }
 
