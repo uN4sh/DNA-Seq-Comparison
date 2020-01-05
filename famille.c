@@ -4,7 +4,7 @@ Famille initFamille(int N, float Dmin, int nF, int *t){
 	//Creation de la famille
 	Famille F;
 	//allocation de N * int pour le nombre de séquences et l'allouer à tailleF
-	F.ns = malloc (N * sizeof(int));
+	F.ns = malloc (N * sizeof(int));	
 	F.taille = N;
 	//prise en note de Dmin, distance par rapport au pivot
 	F.Dmin = Dmin;
@@ -12,7 +12,8 @@ Famille initFamille(int N, float Dmin, int nF, int *t){
 	F.nF = nF;
 	//Remplissage du tableau contenant les numéros des séquences de la famille
 	int j = 0;
-	for (int i = 0; i < 150; i++)
+	
+	for (int i = 0; i < 190; i++)
 	{
 		if(t[i] != 0){ 
 			F.ns[j] = t[i];
@@ -31,10 +32,10 @@ Famille *creaFamilles(Distance *All){
 	float Dmin;
 	int cptFamille;
 	int dtemp;
-	int nbDist;
+	int nbDist=0;
 	int piv;
 	int d;
-	int temp[150] = {0};
+	int temp[190] = {0};
 	
 	while(familleAllCheck(All) == 0){
 		
@@ -52,7 +53,7 @@ Famille *creaFamilles(Distance *All){
 			dCount = dtemp;		
 			piv = pivot(All, dCount, Dmin, nbDist);
 			dtemp = 0;
-			for (int j = dCount; j < (dCount+d); j++)
+			for (int j = dCount; j < (dCount+d-1); j++)
 			{
 				if((familleCheck(All, j) == 0) && (All[j].v == piv)){
 					All[j].V.check = 1;
@@ -66,16 +67,19 @@ Famille *creaFamilles(Distance *All){
 					All[j].W.check = 1;
 					temp[dtemp] = All[j].v;
 					dtemp++;
-					cptFamille++;				
+					cptFamille++;			
 				}				
 			}
+			temp[dtemp] = piv;
+			cptFamille++;
+						
 			//On élimine les doublons
-			for (int m = 0 ; m < 150 ; m++){
+			for (int m = 0 ; m < 190 ; m++){
 				if(temp[m]!=0){
-					for (int n = m+1 ; n < 150 ; n++){
+					for (int n = m+1 ; n < 190 ; n++){
 						if(temp[n] == temp[m]) temp[n] = 0;						
 					}
-				}	
+				}
 			}
 			AllF[fCount] = initFamille(cptFamille, Dmin, fCount+1, temp);
 			familleRep(AllF[fCount]);
@@ -134,7 +138,7 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 	//Pour celles qui n'ont pas de sequences classées, on repertorie les sequences dans un tableau seqList 
 	int k = 0;
 	nbDist*=2;
-	int seqList[nbDist];
+	int *seqList = malloc (nbDist * sizeof(int));
 	while((All[i].dist) == Dmin){
 		if(familleCheck(All, i) == 0){
 			seqList[k] = All[i].v;
@@ -175,6 +179,9 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 			pivot = cpt[n][0];
 		}
 	}
+	free(seqList);
+	
+	
 	return pivot;	
 }
 
