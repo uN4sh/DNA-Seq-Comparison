@@ -1,7 +1,7 @@
 #include "triFusion.h"
 
 struct Famille {
-	
+	//Structure de la famille avec son numéro, le nombre de sequences qu'elle contient, les numéros des sequences et la distance qui les separe
 	int nF;
 	int taille;
 	int *ns;

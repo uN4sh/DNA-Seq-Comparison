@@ -10,7 +10,7 @@ Famille initFamille(int N, float Dmin, int nF, int *t){
 	F.Dmin = Dmin;
 	//numéro de la famille
 	F.nF = nF;
-	
+	//Remplissage du tableau contenant les numéros des séquences de la famille
 	int j = 0;
 	for (int i = 0; i < 150; i++)
 	{
@@ -35,11 +35,7 @@ Famille *creaFamilles(Distance *All){
 	int piv;
 	int d;
 	int temp[150] = {0};
-	/*for (fCount = 0; fCount < 20; fCount++)
-	{
-		AllF[fCount] = initFamille(0,0,0);
-	}
-	fCount = 0;*/
+	
 	while(familleAllCheck(All) == 0){
 		
 		if(familleCheck(All, dCount) == 0){
@@ -88,23 +84,32 @@ Famille *creaFamilles(Distance *All){
 		}
 		else dCount++;
 	}
+	
+	if(fCount<20){
+		for (int i = fCount; i < 20; i++)
+		{
+			AllF[i] = initFamille(0,0,0,0);
+		}		
+	}
 		
 	return AllF;
 }
-//Fonction création répertoire qui prends le numéro de la famille en argument pour le nom du dossier
 
+//Fonction création répertoire qui prends le numéro de la famille en argument pour le nom du dossier
 void familleRep(Famille F){
 	char creaRep[100];
 	char cpSeq[100];
-	sprintf(creaRep, "mkdir Famille%02d",F.nF);
+	sprintf(creaRep, "mkdir Famille%02d",F.nF); //Creation du dossier avec le numéro de la famille
 	system(creaRep);
 	for (int i = 0; i < F.taille; i++)
 	{
+		//chaque sequence de la famille est copiee vers ce dossier
 		sprintf(cpSeq, "cp sequences_ADN/seq%02d.txt Famille%02d/seq%02d.txt",F.ns[i],F.nF,F.ns[i]);
 		system(cpSeq);
 	}		
 } 
 
+//Fonction qui verifie si une des deux sequences comparees est deja dans une famille
 int familleCheck(Distance *All, int i){
 
 	if(All[i].V.check == 0 || All[i].W.check == 0)
@@ -112,6 +117,7 @@ int familleCheck(Distance *All, int i){
 	return 1;	
 }
 
+//Fonction qui permet de savoir si toutes les sequences sont classees
 int familleAllCheck(Distance *All){
 	
 	for (int i = 0; i < 190; i++)
@@ -121,9 +127,11 @@ int familleAllCheck(Distance *All){
 	return 1;
 }
 
-
+//Fonction qui trouve la sequence ayant le plus de "vosines" à une distance Dmin
 int pivot(Distance *All, int i, float Dmin, int nbDist){
-	//
+	//La fonction prend en parametre le tableau des distances, le point de départ de la valeur Dmin, et le nombre de comparaisons ayant cette meme distance (sans compter celles avec des sequences en famille)
+	//Puisque le tableau est trié en fonction des distances, on a le nombre de comparaisons à une meme distance.
+	//Pour celles qui n'ont pas de sequences classées, on repertorie les sequences dans un tableau seqList 
 	int k = 0;
 	nbDist*=2;
 	int seqList[nbDist];
@@ -135,13 +143,14 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 		i++;
 		k+=2;
 	}	
-	//
+	//On initialise un tableau à double entrées, afin de sauvegarder et de mettre en relation les numéros des sequences et leurs fréquences d'apparition
 	int cpt[nbDist][2];
 	for (int j = 0; j < nbDist; j++)
 	{
 		cpt[j][0] = 0;
 		cpt[j][1] = 0;
 	}
+	//Au fur et à mesure que l'on tombe sur les mêmes nombres, on donne à leur case la valeur 0 pour ne pas retomber dessus
 	for (int n = 0; n < nbDist; n++)
 	{		
 		if(seqList[n] != 0){
@@ -155,7 +164,7 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 			}
 		}
 	}
-	//
+	//On trouve la fréquence max et on détermine le numéro de la séquence ayant le plus de "voisines" à Dmin
 	int max = cpt[0][1];
 	int pivot = cpt[0][0];
 	
@@ -169,6 +178,7 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 	return pivot;	
 }
 
+//Fonctions pour libérer les mallocs
 void libereFamille(Famille F){	
 	free(F.ns);	
 }
