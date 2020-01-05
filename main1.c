@@ -1,6 +1,4 @@
-//#include "distance.h"
-#include "triFusion.h"
-// Note : triFusion à inclure dans la partie 2, le main1 devrait s'arrêter aux distances
+#include "distance.h"
 
 int main(int argc, char* argv[]) {
 
@@ -9,7 +7,7 @@ int main(int argc, char* argv[]) {
 		exit(EXIT_FAILURE); 
 	}
 
-	printf("\nMakefile :\n  main1 pour compiler la partie1\n  run1 pour l'exécuter\n  debug1 pour l'exécuter sous valgrind\n  clean nettoyer le répertoire\n");
+	printf("\n*********************************************\nMakefile :\n\n  main1 pour compiler la partie 1\n  run1 pour l'exécuter\n  debug1 pour l'exécuter sous valgrind\n\n  main2 pour compiler la partie 2\n  run2 pour l'executer\n  debug2 pour l'executer sous valgrind\n\n  clean nettoyer le répertoire\n*********************************************\n");
 
 	// Stock de toutes les distances dans un tableau Distance
 	Distance *All = StockDistances(argv);
@@ -20,12 +18,8 @@ int main(int argc, char* argv[]) {
 	//afficheAll(All, argv);
 
 	// Créé un fichier texte avec la mise en forme de toutes les distances
-	fileDistances(All);
+	fileDistances(All);	
 	
-	// Pour la partie 2 : tri croissant des distances et création d'un nouveau fichier texte
-	triFusion(All, 0, 189);
-	printf("\nLe tableau *All a été trié dans l'ordre croissant de ses distances.\n");
-	fileDistancesTriees(All);
 
 	// Libère la mémoire allouée au tableau de structures Distance
 	libereAll(All);

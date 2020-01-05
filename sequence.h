@@ -7,6 +7,7 @@
 struct Sequence {
 	char* sequence; 
 	int l; 
+	int check;
 };
 typedef struct Sequence Sequence;
 

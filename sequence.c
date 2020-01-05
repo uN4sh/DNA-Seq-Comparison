@@ -35,6 +35,7 @@ Sequence initSeq(int nf, char** argv) {
 	// Initialise une séquence en lui assignant d'abord sa taille puis sa chaîne de caractères
 	Sequence seq;
 	seq.l = charCounter(nf, argv);
+	seq.check = 0;
 	FILE *f = openFic(nf, argv);
 	// On alloue la longueur de la séquence +1 pour le caractère de fin de chaîne présent
 	seq.sequence = malloc( (seq.l+1) *sizeof(char));
