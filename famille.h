@@ -18,3 +18,4 @@ int familleAllCheck(Distance *All);
 int pivot(Distance *All, int i, float Dmin, int nbDist);
 void libereFamille(Famille F);
 void libereAllFamille(Famille *AllF);
+void afficheFamille(Famille *AllF);

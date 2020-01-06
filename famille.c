@@ -17,15 +17,15 @@ Famille initFamille(int N, float Dmin, int nF, int *t){
 			F.ns[o] = 0;
 		
 		int j = 0;
-		for (int i = 0; i < 190; i++) {
+		for (int i = 0; i < N; i++) {
 			// Tous les nums de seqs qui étaient dans temp[] sont mis dans tableau ns de la famille
-			if(t[i] != 0 && j < N) { 
+			if((t[i] != 0) && j < N) { 
 				F.ns[j] = t[i];
 				j++;
 			}		
 		}
-	}	
-
+	}
+	
 	return F;
 }
 
@@ -44,7 +44,7 @@ Famille *creaFamilles(Distance *All){
 	
 	while(familleAllCheck(All)){
 		// Tant que y'a encore des familles orphelines
-		if((familleCheck(All, dCount) == 0) && dCount<190){
+		if(dCount<190 && (familleCheck(All, dCount) == 0)){
 			Dmin = All[dCount].dist;
 			// Si les 2 premieres seq de la premiere distance sont orph, on la prend comme Dmin
 			d = 0;
@@ -60,10 +60,9 @@ Famille *creaFamilles(Distance *All){
 				dCount++; // on avance dans le tableau de distance
 			}
 			dCount = dtemp;	
-			
 			piv = pivot(All, dCount, Dmin, nbDist);
-
 			dtemp = 0;
+			
 			for (int i = 0; i < 190 ; i++)
 			{
 				temp[i] = 0;
@@ -102,7 +101,6 @@ Famille *creaFamilles(Distance *All){
 			}
 			
 			AllF[fCount] = initFamille(cptFamille, Dmin, fCount+1, temp);
-
 			familleRep(AllF[fCount]);
 			dCount = 0;
 			fCount++;
@@ -114,15 +112,11 @@ Famille *creaFamilles(Distance *All){
 					if(temp[s] == (All[r].v)) All[r].V.check = 1;
 					else if(temp[s] == (All[r].w)) All[r].W.check = 1;
 				}
-				
-			}
-				
+			}	
 		}
 		//Dans le cas où une séquence est solitaire à la fin de la répartition
 		else if (dCount == 190) {
-			fCount++;
 			int solo = 0;
-			int *tab1 = &solo;
 			int i;
 			for (i = 0; i < 190; i++)
 			{
@@ -137,20 +131,25 @@ Famille *creaFamilles(Distance *All){
 					break;
 				}				
 			}
+				
 			for (i = 0; i < 190; i++)
 			{
 				if(solo == (All[i].v)) All[i].V.check = 1;
 				else if(solo == (All[i].w)) All[i].W.check = 1;
+				temp[i] = 0;
 			}
-			AllF[fCount] = initFamille(1,Dmin,fCount,tab1);
-			familleRep(AllF[fCount]);			
+			
+			temp[0] = solo;
+			AllF[fCount] = initFamille(1,Dmin,fCount+1,temp);
+			familleRep(AllF[fCount]);
+			fCount++;			
 		}
 		else dCount++;	
 	}
 	
 	// Juste pour remplir le reste des cases du tableau de familles
 	if(fCount<20){
-		for (int i = fCount+1; i < 20; i++)
+		for (int i = (fCount+1); i < 20; i++)
 		{
 			AllF[i] = initFamille(0,0,0,NULL);
 		}	
@@ -175,7 +174,6 @@ void familleRep(Famille F){
 
 //Fonction qui verifie si une des deux sequences comparees est deja dans une famille
 int familleCheck(Distance *All, int i){
-
 	if(All[i].V.check == 1 || All[i].W.check == 1)
 		return 1;
 	return 0;	
@@ -262,16 +260,29 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 }
 
 //Fonctions pour libérer les mallocs
-void libereFamille(Famille F){	
-	free(F.ns);	
+void libereFamille(Famille F){
+
+	if(F.taille>0) free(F.ns);			
 }
 
 void libereAllFamille(Famille *AllF){
 	for (int i = 0; i < 20; i++)
 	{
-		libereFamille(AllF[i]);
-		printf("hello\n");
-	}
-	
+		libereFamille(AllF[i]);		
+	}	
 	free(AllF);
+}
+
+void afficheFamille(Famille *AllF){
+	printf("Les familles de séquences :\n");
+	for (int i = 0; i < 20; i++)
+	{
+		if(AllF[i].taille != 0){
+			
+			printf("Famille n°%d : ", AllF[i].nF);
+			for (int j = 0; j < AllF[i].taille; j++)
+				printf("%d ",AllF[i].ns[j]);
+			printf("\n");			
+		}		
+	}
 }

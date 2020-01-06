@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 	
 	Famille *AllF = creaFamilles(All);
 	printf("Les familles ont été créés et réparties dans leurs répertoires respectifs.\n");
-	//afficher les familles
+	afficheFamille(AllF);
 	
 	// Affiche dans le terminal l'ensemble de ces distances
 	//afficheAll(All, argv);
