@@ -40,4 +40,5 @@ clean:
 	rm -f main2
 	rm -f stockDistances.txt
 	rm -f stockDistancesTriées.txt
+	rm -rf Famille*
 	ls -l
