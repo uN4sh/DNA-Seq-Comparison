@@ -2,6 +2,8 @@
 // Les librairies stdio et stdlib sont incluses via le header sequence.h
 
 FILE *openFic(int i, char** argv) {
+	if (i < 1 || i > 20) 
+		return 0;
 	// Ouvre le fichier associé à l'entier dans le repertoire mis en argument par l'éxecution (ici : sequences_ADN)
 	char fic[25];
 	// On écrit dans la chaîne fic le chemin d'accès au fichier de séquences 
