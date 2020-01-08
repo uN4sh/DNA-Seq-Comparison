@@ -5,7 +5,7 @@ struct Famille {
 	int nF; // Numéro de la famille
 	int taille; // Nombre de séquences dans la famille
 	int* ns; // Tableau des numéros de séquences que la famille contient
-	int Dmin; // Distance Dmin associée
+	float Dmin; // Distance Dmin associée
 	int pivot; // Pivot de la famille
 	char *seqCons; // Séquence consensus de la famille
 	
