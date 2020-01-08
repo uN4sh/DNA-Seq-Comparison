@@ -1,36 +1,44 @@
 #include "famille.h"
 
-Famille initFamille(int N, float Dmin, int nF, int *t){
-	//Creation de la famille
+Famille initFamille(int N, float Dmin, int nF, int *t, int pivot){
+	// Creation et allocation du nombre de séquences * la taille d'un int pour une famille
 	Famille F;
-	//allocation de N * int pour le nombre de séquences et l'allouer à tailleF
 	F.ns = malloc (N * sizeof(int));
-	F.taille = N;
-	//prise en note de Dmin, distance par rapport au pivot
-	F.Dmin = Dmin;
-	//numéro de la famille
+
+	// On assigne à la famille son numéro, son nombre de séquence, son pivot, et Dmin la distance par rapport à son pivot
 	F.nF = nF;
+	F.taille = N;
+	F.pivot = pivot;
+	F.Dmin = Dmin;
 
 	//Remplissage du tableau contenant les numéros des séquences de la famille
 	if(t != NULL){
-		for (int o = 0; o < N; o++)
-			F.ns[o] = 0;
-		
 		int j = 0;
 		for (int i = 0; i < N; i++) {
-			// Tous les nums de seqs qui étaient dans temp[] sont mis dans tableau ns de la famille
-			if((t[i] != 0) && j < N) { 
+			// Tous les nums de seqs qui étaient dans temp[] sont mis dans tableau F.ns de la famille
 				F.ns[j] = t[i];
-				j++;
-			}		
+				j++;	
+		}
+		int temp;
+		if(F.ns[0] != pivot){
+			for (int i = 0; i < N; i++)
+			{
+				if(F.ns[i] == pivot){
+					temp = F.ns[0];
+					F.ns[0] = F.ns[i];
+					F.ns[i] = temp;
+				}
+			}
 		}
 	}
+	
+	F.seqCons = NULL;
 	
 	return F;
 }
 
 Famille *creaFamilles(Distance *All){
-	//Creation du tableau contenant les familles, de taille 20 car il ne peut y en avoir plus de 20 (20 séquences et familles de 1)
+	// Creation du tableau contenant les familles, de taille 20 car il ne peut y en avoir plus de 20 (20 séquences et familles de 1)
 	Famille *AllF = malloc (20 * sizeof(Famille));
 	int fCount = 0;  // Compte le nombre de familles (pour le if de fin)
 	int dCount = 0;  // Curseur dans le tableau Distances
@@ -55,7 +63,8 @@ Famille *creaFamilles(Distance *All){
 			while(dCount < 190 && (All[dCount].dist) == Dmin){
 				// On peut faire ce while vu que les distances sont classées croissantes
 				if(familleCheck(All, dCount) == 0)
-					nbDist++;
+						nbDist++;
+					
 				d++; // increase le nombre de seqs qui ont le même Dmin
 				dCount++; // on avance dans le tableau de distance
 			}
@@ -63,10 +72,9 @@ Famille *creaFamilles(Distance *All){
 			piv = pivot(All, dCount, Dmin, nbDist);
 			dtemp = 0;
 			
+			// On remplit le tableau temp de 0
 			for (int i = 0; i < 190 ; i++)
-			{
 				temp[i] = 0;
-			}
 			
 			for (int j = dCount; j < (dCount+d); j++)
 			{
@@ -86,10 +94,9 @@ Famille *creaFamilles(Distance *All){
 					cptFamille++;				
 				}				
 			}
+			// Et on fait entrer la séquence pivot à la fin du tableau temp
 			temp[dtemp] = piv;
-			cptFamille++;
-			// Et si dans la distance y'a pas de seq pivot ça va pas la remplir dans temp ?
-			// Bah non justement, une famille à que des comparaisons qui lie le pivot à une autre
+			cptFamille++;			
 
 			//On élimine les doublons
 			for (int m = 0 ; m < 190 ; m++){
@@ -100,20 +107,24 @@ Famille *creaFamilles(Distance *All){
 				}	
 			}
 			
-			AllF[fCount] = initFamille(cptFamille, Dmin, fCount+1, temp);
+			AllF[fCount] = initFamille(cptFamille, Dmin, fCount+1, temp, piv);
+			// On créé la famille avec tous les paramètres
+			// cptFamille = N = nbr de séquences dans la famille
 			familleRep(AllF[fCount]);
 			dCount = 0;
 			fCount++;
 			
-			for (int r = 0; r < 190; r++)
-			{
-				for (int s = 0; s < cptFamille; s++)
-				{
+			// Double boucle pour cocher la séquence dans tout le tableau All des distances
+			for (int r = 0; r < 190; r++) {
+				// On parcourt les 190 cases du tableau All des distances
+				for (int s = 0; s < cptFamille; s++) {
+					// Pour passer en CHECK toutes les séquences du même numéro
 					if(temp[s] == (All[r].v)) All[r].V.check = 1;
 					else if(temp[s] == (All[r].w)) All[r].W.check = 1;
 				}
 			}	
 		}
+		
 		//Dans le cas où une séquence est solitaire à la fin de la répartition
 		else if (dCount == 190) {
 			int solo = 0;
@@ -140,7 +151,8 @@ Famille *creaFamilles(Distance *All){
 			}
 			
 			temp[0] = solo;
-			AllF[fCount] = initFamille(1,Dmin,fCount+1,temp);
+			
+			AllF[fCount] = initFamille(1,Dmin,fCount+1,temp, solo);
 			familleRep(AllF[fCount]);
 			fCount++;			
 		}
@@ -149,9 +161,9 @@ Famille *creaFamilles(Distance *All){
 	
 	// Juste pour remplir le reste des cases du tableau de familles
 	if(fCount<20){
-		for (int i = (fCount+1); i < 20; i++)
+		for (int i = fCount; i < 20; i++)
 		{
-			AllF[i] = initFamille(0,0,0,NULL);
+			AllF[i] = initFamille(0,0,0,NULL,0);
 		}	
 	}
 	
@@ -162,6 +174,9 @@ Famille *creaFamilles(Distance *All){
 void familleRep(Famille F){
 	char creaRep[100];
 	char cpSeq[100];
+	char check[30];
+	sprintf(check, "rm -rf Famille%02d",F.nF); //Suppression du dossier si il existait déjà
+	system(check);
 	sprintf(creaRep, "mkdir Famille%02d",F.nF); //Creation du dossier avec le numéro de la famille
 	system(creaRep);
 	for (int i = 0; i < F.taille; i++)
@@ -262,27 +277,33 @@ int pivot(Distance *All, int i, float Dmin, int nbDist){
 //Fonctions pour libérer les mallocs
 void libereFamille(Famille F){
 
-	if(F.taille>0) free(F.ns);			
+	if(F.taille>0) free(F.ns);
+				
 }
 
 void libereAllFamille(Famille *AllF){
+	
 	for (int i = 0; i < 20; i++)
 	{
-		libereFamille(AllF[i]);		
+		libereFamille(AllF[i]);
+		if(AllF[i].seqCons != NULL)
+			free(AllF[i].seqCons);
 	}	
 	free(AllF);
 }
 
 void afficheFamille(Famille *AllF){
 	printf("Les familles de séquences :\n");
-	for (int i = 0; i < 20; i++)
-	{
-		if(AllF[i].taille != 0){
-			
+	int i = 0;
+	while(AllF[i].taille != 0){
 			printf("Famille n°%d : ", AllF[i].nF);
-			for (int j = 0; j < AllF[i].taille; j++)
+			for (int j = 0; j < AllF[i].taille; j++){
 				printf("%d ",AllF[i].ns[j]);
-			printf("\n");			
+				if(AllF[i].seqCons != NULL)
+					printf("Séquence consensus : %s", AllF[i].seqCons);
+			}
+			printf("\n");
+			i++;				
 		}		
-	}
+	printf("\n");
 }
