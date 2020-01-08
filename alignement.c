@@ -89,7 +89,7 @@ Alignement *initAlignement(Alignement* list, int seq1, int seq2, int seqMax, cha
 	free(temp1.sequence);
 	free(temp2.sequence);
 
-	return e1;	
+	return e2;	
 }
 
 Alignement *ajoutSequence(Alignement*list, int seq, int i){
