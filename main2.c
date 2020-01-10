@@ -22,8 +22,7 @@ int main(int argc, char* argv[]) {
 	printf("\nLa distance D%d est utilisée pour le calcul.\n", D);
 	printf("Les distances et séquences associées ont toutes été stockées dans le tableau *All.\n");
 	
-	
-	// Pour la partie 2 : tri croissant des distances et création d'un fichier texte avec les distances triées
+	// Tri croissant des distances et création d'un fichier texte avec les distances triées
 	triFusion(All, 0, 189);
 	printf("\nLe tableau *All a été trié dans l'ordre croissant de ses distances.\n");
 	fileDistancesTriees(All);

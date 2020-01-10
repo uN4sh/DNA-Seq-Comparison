@@ -15,6 +15,10 @@ typedef struct Famille Famille;
 // Allocation de mémoire selon la taille et initialisation de tous les paramètres pour une famille 
 Famille initFamille(int N, float Dmin, int nF, int *t, int pivot);
 Famille *creaFamilles(Distance *All);
+void solo(Famille *AllF, Distance *All, int fCount, float Dmin);
+// Dans le cas où une séquences est solitaire à la fin de la répartition
+
+int pivot(Distance *All, int i, float Dmin, int nbDist);
 
 // Créé un répertoire pour un numéro de famille donné et copie les fichiers des séquences dedans
 void familleRep(Famille F);
@@ -24,9 +28,6 @@ int familleCheck(Distance *All, int i);
 // Renvoie 1 si toutes les séquences sont classées dans des familles (condition de fin de boucle)
 int familleAllCheck(Distance *All);
 
-int pivot(Distance *All, int i, float Dmin, int nbDist);
-
-void libereFamille(Famille F);
-void libereAllFamille(Famille *AllF);
-
 void afficheFamille(Famille *AllF);
+
+void libereAllFamille(Famille *AllF);
