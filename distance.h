@@ -10,7 +10,7 @@
  * 	C	2	0	2	1	1.5
  * 	G	1	2	0	2	1.5
  * 	T	2	1	2	0	1.5
- *	-      1.5     1.5     1.5     1.5
+ *	-  1.5 1.5 1.5 1.5
  */
  
 struct distance {
@@ -29,7 +29,12 @@ int charCompare(int cv, int cw);
 Distance distanceD1(int v, int w, char** argv);
 // Distance D1, retourtant une structure Distance, expliquée en détail dans le fichier .c
 
-Distance *StockDistances(char **argv);
+Distance distanceD2(int v, int w, char** argv);
+float Dist2 (Sequence V, Sequence W);
+// Distance D2 en programmation dynamique
+
+
+Distance *StockDistances(char **argv, int D);
 // Stockage de toutes les distances entre paires de séquences dans un tableau de structure Distance
 
 void afficherDistance(Distance D);
