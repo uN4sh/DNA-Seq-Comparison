@@ -298,11 +298,10 @@ void afficheFamille(Famille *AllF){
 	int i = 0;
 	while(AllF[i].taille != 0){
 			printf("\033[31;01m    Famille n°%d :\033[00m ", AllF[i].nF);
-			for (int j = 0; j < AllF[i].taille; j++){
+			for (int j = 0; j < AllF[i].taille; j++)
 				printf("\033[31m%d \033[00m",AllF[i].ns[j]);
-				if(AllF[i].seqCons != NULL)
+			if(AllF[i].seqCons != NULL)
 					printf("\nSéquence consensus %d : %s", i, AllF[i].seqCons);
-			}
 			printf("\n");
 			i++;				
 		}		
