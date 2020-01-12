@@ -61,21 +61,19 @@ void creaConsensus(Famille *AllF, Distance *All, char** argv){
 Alignement *initAlignement(Alignement* list, int seq1, int seq2, int seqMax, char** argv){
 	Alignement* e1 = malloc (sizeof(Alignement));
 	Alignement* e2 = malloc (sizeof(Alignement));
-	//Sequence temp1, temp2;
-	Distance Dtemp;
-	Dtemp = distanceD2(seq1, seq2, argv);
-	//temp1 = initSeq(seq1, argv);
-	//temp2 = initSeq(seq2, argv);
+	Sequence temp1, temp2;
+	temp1 = initSeq(seq1, argv);
+	temp2 = initSeq(seq2, argv);
 	e1->numSeq = seq1;
 	e2->numSeq = seq2;
 	e1->seq = malloc (seqMax * sizeof(char));
 	e2->seq = malloc (seqMax * sizeof(char));
 	int i = 0;
-	while(Dtemp.V.sequence[i] != '\0'){
-		e1->seq[i] = Dtemp.V.sequence[i];
+	while(temp1.sequence[i] != '\0'){
+		e1->seq[i] = temp1.sequence[i];
 		i++;		
 	}
-	if(Dtemp.V.l < seqMax){
+	if(temp1.l < seqMax){
 		while(i < seqMax-1){
 			e1->seq[i] = '*';
 			i++;
@@ -83,11 +81,11 @@ Alignement *initAlignement(Alignement* list, int seq1, int seq2, int seqMax, cha
 	}
 	e1->seq[i] = '\0';
 	i = 0;
-	while(Dtemp.W.sequence[i] != '\0'){
-		e2->seq[i] = Dtemp.W.sequence[i];
+	while(temp2.sequence[i] != '\0'){
+		e2->seq[i] = temp2.sequence[i];
 		i++;		
 	}
-	if(Dtemp.W.l < seqMax){
+	if(temp2.l < seqMax){
 		while(i < seqMax-1){
 			e2->seq[i] = '*';
 			i++;
@@ -97,12 +95,12 @@ Alignement *initAlignement(Alignement* list, int seq1, int seq2, int seqMax, cha
 	
 	e2->suiv = list;
 	e1->suiv = e2;
-	libereMemoire(Dtemp);
-	//free(Dtemp.V.sequence);
-	//free(Dtemp.W.sequence);
+	free(temp1.sequence);
+	free(temp2.sequence);
 
 	return e1;	
 }
+
 
 void ajoutSequence(Alignement *list, int seq, int i, int seqMax, char **argv){	
 	Alignement *e;
