@@ -82,7 +82,7 @@ Distance Dist2 (Distance D2) {
 
 	D2.dist = m[D2.V.l][D2.W.l];
 
-
+	// Deux nouvelles chaînes pour sauvegarder l'alignement
 	char v2[25];
 	char w2[25];
 	for (int i = 0; i < 25; ++i)
@@ -91,13 +91,14 @@ Distance Dist2 (Distance D2) {
 	}
 
 	int i = D2.V.l;
-	int k = 25;
+	int k = 24;
 	int j = D2.W.l;
-	int l = 25;
+	int l = 24;
+
 	while (i > 0 && j > 0) {
 		if ((m[i][j] - 1.5) == m[i-1][j]) {
 			// on prend dans i
-			v2[k] = D2.V.sequence[i];
+			v2[k] = D2.V.sequence[i-1];
 			w2[l] = '-';
 			i = i-1; k = k-1;
 			j = j; l = l-1;
@@ -105,25 +106,31 @@ Distance Dist2 (Distance D2) {
 		else if ((m[i][j] - 1.5) == m[i][j-1]) {
 			// on prend dans j
 			v2[k] = '-';
-			w2[l] = D2.W.sequence[j];
+			w2[l] = D2.W.sequence[j-1];
 			i = i; k = k-1;
 			j = j-1; l = l-1;
 		} 
 		else if ((m[i][j] - charCompare(D2.V.sequence[i-1], D2.W.sequence[j-1])) == m[i-1][j-1]) {
-			v2[k] = D2.V.sequence[i];
-			w2[l] = D2.W.sequence[j];
+			v2[k] = D2.V.sequence[i-1];
+			w2[l] = D2.W.sequence[j-1];
 			i = i-1; k = k-1;
 			j = j-1; l = l-1;
 		}
 	}
-	while(i >= 0) {
-		v2[k] = D2.V.sequence[i]; i--; k--;
+	while (i > 0) {
+		v2[k] = D2.V.sequence[i-1];
+		w2[l] = '-';
+		i = i-1; k = k-1;
+		j = j; l = l-1;	
 	}
-	while(j >= 0) {
-		w2[l] = D2.W.sequence[j]; j--; l--;
+	while (j > 0) {
+		v2[k] = '-';
+		w2[l] = D2.W.sequence[j-1];	
+		i = i; k = k-1;
+		j = j-1; l = l-1;
 	}
 
-	// fonction qui corrige les espaces
+	// On remet à présent les chaines au bon format
 	libereMemoire(D2);
 	D2.V.sequence = espaces(v2);
 	D2.W.sequence = espaces(w2);
@@ -178,7 +185,7 @@ Distance *StockDistances(char **argv, int D) {
 
 void afficherDistance(Distance D){
 	// Pour une structure Distance donnée, la fonction affiche les 2 séquences + n° associés, et leur distance
-	printf("%d %s\t %d %s\t   D_%d_%d :\t%.1f\n", D.v, D.V.sequence, D.w, D.W.sequence, D.v, D.w, D.dist);
+	printf("%d %s\n %d %s\t   D_%d_%d :\t%.1f\n", D.v, D.V.sequence, D.w, D.W.sequence, D.v, D.w, D.dist);
 }
 
 void afficheAll(Distance *All, char** argv) {
@@ -208,7 +215,7 @@ void fileDistances (Distance *All) {
 		for (int w = v+1; w <= 20; w++)
 		{
 			if((All[k].V.sequence != NULL) && (All[k].V.sequence != NULL)) { // Bon la y'a une uninitialized value dans les %s j'arrive pas à regler..
-				fprintf(fDist, "%02d %s\n%02d %s\t  \tD_%d_%d :\t%.1f\n", All[k].v, All[k].V.sequence,
+				fprintf(fDist, "%02d %s\n%02d %s\t  \tD_%d_%d : %.1f\n", All[k].v, All[k].V.sequence,
 					    All[k].w, All[k].W.sequence, All[k].v, All[k].w, All[k].dist);
 				
 				k++;
