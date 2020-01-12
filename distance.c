@@ -3,6 +3,7 @@
 // Pour calculer le min entre 3 valeurs (Utile pour D2)
 #define min3(x,y,z) ( (x) < (min2(y, z)) ? (x):(min2(y,z)) )
 #define min2(x,y)  ( (x) < (y) ? (x):(y))
+#define max(x,y) ( x > y ? x:y)
 
 int charCompare(int cv, int cw) {
 	// Comparateur de caractères selon la matrice de distances (Pour D1)
@@ -52,11 +53,12 @@ Distance distanceD2(int v, int w, char** argv) {
 	// Initialisation du float distance à 0
 	D2.dist = 0.0;
 
-	D2.dist = Dist2(D2.V, D2.W);
+	D2 = Dist2(D2);
 	return D2;
 }
 
-float Dist2 (Sequence V, Sequence W) {
+// Pourrait prendre entièrement Distance D2 pour pouvoir modifier les chaines de caractères
+Distance Dist2 (Distance D2) {
 	// Programmation dynamique! Pas de récursivité!
 	float m[21][21]; 
 	// Tableau avec le max de caractères possibles dans une séquences
@@ -67,17 +69,84 @@ float Dist2 (Sequence V, Sequence W) {
 		m[i][0] = 1.5*i; // Délétion de tous les caractères de la 1ere seq
 	}
 	
-	for (int i = 1; i <= V.l; i++)
+	for (int i = 1; i <= D2.V.l; i++)
 	{ 
-		for (int j = 1; j <= W.l; j++)
+		for (int j = 1; j <= D2.W.l; j++)
 		{
 			// On remplit chaque case du tableau avec la meilleure distance 
-			m[i][j] = min3( (m[i][j-1] + 1.5),
+			m[i][j] = min3((m[i][j-1] + 1.5),
 						   (m[i-1][j] + 1.5),
-						   (m[i-1][j-1] + charCompare(V.sequence[i-1], W.sequence[j-1])) );
+						   (m[i-1][j-1] + charCompare(D2.V.sequence[i-1], D2.W.sequence[j-1])) );
 		}
 	}
-	return m[V.l][W.l]; 
+
+	D2.dist = m[D2.V.l][D2.W.l];
+
+
+	char v2[25];
+	char w2[25];
+	for (int i = 0; i < 25; ++i)
+	{
+		v2[i] = ' '; w2[i] = ' '; 
+	}
+
+	int i = D2.V.l;
+	int k = 25;
+	int j = D2.W.l;
+	int l = 25;
+	while (i > 0 && j > 0) {
+		if ((m[i][j] - 1.5) == m[i-1][j]) {
+			// on prend dans i
+			v2[k] = D2.V.sequence[i];
+			w2[l] = '-';
+			i = i-1; k = k-1;
+			j = j; l = l-1;
+		}
+		else if ((m[i][j] - 1.5) == m[i][j-1]) {
+			// on prend dans j
+			v2[k] = '-';
+			w2[l] = D2.W.sequence[j];
+			i = i; k = k-1;
+			j = j-1; l = l-1;
+		} 
+		else if ((m[i][j] - charCompare(D2.V.sequence[i-1], D2.W.sequence[j-1])) == m[i-1][j-1]) {
+			v2[k] = D2.V.sequence[i];
+			w2[l] = D2.W.sequence[j];
+			i = i-1; k = k-1;
+			j = j-1; l = l-1;
+		}
+	}
+	while(i >= 0) {
+		v2[k] = D2.V.sequence[i]; i--; k--;
+	}
+	while(j >= 0) {
+		w2[l] = D2.W.sequence[j]; j--; l--;
+	}
+
+	// fonction qui corrige les espaces
+	libereMemoire(D2);
+	D2.V.sequence = espaces(v2);
+	D2.W.sequence = espaces(w2);
+
+	return D2; 
+}
+
+char* espaces(char* v) {
+	int esp = 0;
+	for (int i = 0; i < 25; ++i)
+	{
+		if (v[i] == ' ')
+			esp++;
+	}
+
+	char* new = malloc((25-esp+1)*sizeof(char));
+	int k = 0;
+	for (int i = esp; i < 25; ++i)
+	{
+		new[k] = v[i];
+		k++;
+	}
+	return new;
 }
 
 Distance *StockDistances(char **argv, int D) {
@@ -138,10 +207,13 @@ void fileDistances (Distance *All) {
 	{
 		for (int w = v+1; w <= 20; w++)
 		{
-			fprintf(fDist, "%d %s\t %d %s\t   D_%d_%d :\t%.1f\n", All[k].v, All[k].V.sequence,
-				    All[k].w, All[k].W.sequence, All[k].v, All[k].w, All[k].dist);
-			k++;
-			fprintf(fDist, "\n");
+			if((All[k].V.sequence != NULL) && (All[k].V.sequence != NULL)) { // Bon la y'a une uninitialized value dans les %s j'arrive pas à regler..
+				fprintf(fDist, "%02d %s\n%02d %s\t  \tD_%d_%d :\t%.1f\n", All[k].v, All[k].V.sequence,
+					    All[k].w, All[k].W.sequence, All[k].v, All[k].w, All[k].dist);
+				
+				k++;
+				fprintf(fDist, "\n");
+			}
 		}
 	}
 	fclose(fDist);

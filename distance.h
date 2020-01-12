@@ -30,9 +30,9 @@ Distance distanceD1(int v, int w, char** argv);
 // Distance D1, retourtant une structure Distance, expliquée en détail dans le fichier .c
 
 Distance distanceD2(int v, int w, char** argv);
-float Dist2 (Sequence V, Sequence W);
+Distance Dist2 (Distance D2);
 // Distance D2 en programmation dynamique
-
+char* espaces(char* v);
 
 Distance *StockDistances(char **argv, int D);
 // Stockage de toutes les distances entre paires de séquences dans un tableau de structure Distance
