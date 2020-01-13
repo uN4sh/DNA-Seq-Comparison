@@ -146,7 +146,7 @@ char* espaces(char* v) {
 			esp++;
 	}
 
-	char* new = malloc((25-esp+1)*sizeof(char));
+	char* new = m-alloc((25-esp+1)*sizeof(char));
 	int k = 0;
 	for (int i = esp; i < 25; ++i)
 	{
