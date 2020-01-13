@@ -43,7 +43,7 @@ Sequence initSeq(int nf, char** argv) {
 	seq.check = 0;
 	FILE *f = openFic(nf, argv);
 	// On alloue la longueur de la séquence +1 pour le caractère de fin de chaîne présent
-	seq.sequence = malloc( (seq.l+1) *sizeof(char));
+	seq.sequence = malloc( (seq.l+1) *sizeof(char)); if(!seq.sequence) exit(0);
 	// Puis on écrit la séquence dans la chaîne de caractère
 	fscanf(f, "%s", seq.sequence);
 	

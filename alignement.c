@@ -8,7 +8,7 @@ void creaConsensus(Famille *AllF, Distance *All, char** argv){
 		if(AllF[i].taille == 1){ 
 			Sequence temp;
 			temp = initSeq(AllF[i].ns[0], argv);
-			AllF[i].seqCons = malloc ((temp.l)+1 * sizeof(char));
+			AllF[i].seqCons = malloc ((temp.l)+1 * sizeof(char)); if(!AllF[i].seqCons) exit(0);
 			for (int j = 0; j < temp.l; j++)
 				AllF[i].seqCons[j] = temp.sequence[j];
 			free(temp.sequence);
@@ -59,15 +59,15 @@ void creaConsensus(Famille *AllF, Distance *All, char** argv){
 }
 
 Alignement *initAlignement(Alignement* list, int seq1, int seq2, int seqMax, char** argv){
-	Alignement* e1 = malloc (sizeof(Alignement));
-	Alignement* e2 = malloc (sizeof(Alignement));
+	Alignement* e1 = malloc (sizeof(Alignement)); if(!e1) exit(0);
+	Alignement* e2 = malloc (sizeof(Alignement)); if(!e2) exit(0);
 	Sequence temp1, temp2;
 	temp1 = initSeq(seq1, argv);
 	temp2 = initSeq(seq2, argv);
 	e1->numSeq = seq1;
 	e2->numSeq = seq2;
-	e1->seq = malloc (seqMax * sizeof(char));
-	e2->seq = malloc (seqMax * sizeof(char));
+	e1->seq = malloc (seqMax * sizeof(char)); if(!e1->seq) exit(0);
+	e2->seq = malloc (seqMax * sizeof(char)); if(!e2->seq) exit(0);
 	int i = 0;
 	while(temp1.sequence[i] != '\0'){
 		e1->seq[i] = temp1.sequence[i];
@@ -107,11 +107,11 @@ void ajoutSequence(Alignement *list, int seq, int i, int seqMax, char **argv){
 	Sequence s = initSeq(seq, argv);
 	for (int j = 0; j < i; j++)
 		list = list->suiv;
-	e = malloc(sizeof(Alignement));
+	e = malloc(sizeof(Alignement)); if(!e) exit(0);
 	e->suiv = list->suiv;
 	list->suiv = e;
 	e->numSeq = seq;
-	e->seq = malloc(seqMax * sizeof(char));
+	e->seq = malloc(seqMax * sizeof(char)); if(!e->seq) exit(0);
 	int k = 0;
 	while(s.sequence[k] != '\0'){
 		e->seq[k] = s.sequence[k];
@@ -133,8 +133,8 @@ void calculCons(Famille *AllF, Alignement *list, int i, int seqMax){
 	
 	int j;
 	Alignement *temp;
-	char *seqCons = malloc(seqMax * sizeof(char));
-	int *freq = malloc(5 * sizeof(int));
+	char *seqCons = malloc(seqMax * sizeof(char)); if(!seqCons) exit(0);
+	int *freq = malloc(5 * sizeof(int)); if(!freq) exit(0);
 	
 	for (j = 0; j < seqMax-1; j++) {
 		temp = list;

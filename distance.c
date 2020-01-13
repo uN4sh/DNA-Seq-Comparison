@@ -146,7 +146,7 @@ char* espaces(char* v) {
 			esp++;
 	}
 
-	char* new = m-alloc((25-esp+1)*sizeof(char));
+	char* new = malloc((25-esp+1)*sizeof(char)); if(!new) exit(0);
 	int k = 0;
 	for (int i = esp; i < 25; ++i)
 	{
@@ -161,7 +161,7 @@ Distance *StockDistances(char **argv, int D) {
 	// *All est un tableau de structures Distance qui stock toutes les distances & séquences associées
 	// 190 distances différentes, *All doit contenir 190 fois la taille de la structure
 	// Note : On pourrait faire un double tour de boucle avant l'allocation en incrémentant k pour la preuve des 190 distances
-	Distance *All = malloc(190*sizeof(Distance));
+	Distance *All = malloc(190*sizeof(Distance)); if(!All) exit(0);
 	for (int v = 1; v <= 19; v++) {
 		// La première boucle va jusqu'à la 19ème séquence pour la comparer avec la 20ème
 		for (int w = v+1; w <= 20; w++) {

@@ -3,7 +3,7 @@
 void fusion(Distance *All, int g, int m, int d) {
 	// On a juste deux tableau, deb à mil et mil-1 à fin, qu'on va fusionner
 	int i,j,k;
-	Distance *tmpAll = malloc((d-g+1)*sizeof(Distance));
+	Distance *tmpAll = malloc((d-g+1)*sizeof(Distance)); 
 	if(tmpAll == NULL) {
 		fprintf(stderr, "Erreur allocation tmpAll\n");
 		exit(EXIT_FAILURE);
