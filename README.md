@@ -20,16 +20,21 @@ Ce projet s'organise en trois parties :
 
 ## Exécution
 
+### Partie 1
 - `main1` pour compiler la partie1
 - `partie1` pour l'exécuter
 - `debug1` pour l'exécuter sous Valgrind
 
+### Partie 2
 - `main2` pour compiler la partie2
 - `partie2` pour l'executer
 - `debug2` pour l'executer sous Valgrind
 
+### Partie 3
 - `main3` pour compiler la partie3
 - `partie3` pour l'executer
 - `debug3` pour l'executer sous Valgrind
 
-- `clean`  nettoyer le répertoire
+### Utilitaire
+- `clean`  pour nettoyer le répertoire
+- `archive` pour construire une archive du projet 
