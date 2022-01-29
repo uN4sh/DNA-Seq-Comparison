@@ -82,7 +82,7 @@ clean:
 	rm -rf Famille*
 	ls -l
 
-NOM = TestZIP
+NOM = Archive
 archive:
 	rm -rf ${NOM} 
 	mkdir ${NOM} 
@@ -90,5 +90,4 @@ archive:
 	cp *.c ${NOM} 
 	cp *.h ${NOM} 
 	cp Makefile ${NOM} 
-	zip -r $(NOM) .zip $(NOM) 
-	ls -l ${NOM} *
+	zip -r $(NOM) .zip $(NOM)

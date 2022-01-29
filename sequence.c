@@ -51,6 +51,20 @@ Sequence initSeq(int nf, char** argv) {
 	return seq;
 }
 
+void afficheSeq(int nf, char** argv) {
+	Sequence seq;
+	seq.l = charCounter(nf, argv);
+	seq.check = 0;
+	FILE *f = openFic(nf, argv);
+	// On alloue la longueur de la séquence +1 pour le caractère de fin de chaîne présent
+	seq.sequence = malloc( (seq.l+1) *sizeof(char)); if(!seq.sequence) exit(0);
+	// Puis on écrit la séquence dans la chaîne de caractère
+	fscanf(f, "%s", seq.sequence);
+	printf("\033[00;01m%02d\t %s\033[00m\n", nf, seq.sequence);
+	fclose(f);
+	libereSeq(seq);
+}
+
 void libereSeq(Sequence S) {
 	// Pour une structure Sequence donnée, free de la mémoire allouée à la chaîne ADN
 	free(S.sequence);

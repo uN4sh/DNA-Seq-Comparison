@@ -19,5 +19,6 @@ int charCounter(int nf, char** argv);
 // Pour un numéro de séquence donnée, retourne le nombre de caractères que contient son fichier
 Sequence initSeq(int nf, char** argv);
 // Initialise une séquence en lui assignant d'abord sa taille puis sa chaîne de caractères
+void afficheSeq(int nf, char** argv);
 void libereSeq(Sequence S);
 // Pour une structure Sequence donnée, free de la mémoire allouée à la chaîne ADN

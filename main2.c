@@ -1,7 +1,9 @@
 #include "famille.h"
 
 int main(int argc, char* argv[]) {
-
+	char clear[6] = "clear";
+	system(clear);
+	
 	if(argc < 2) {
 		fprintf(stderr,"Erreur syntaxe : ./main2 rep\n");
 		exit(EXIT_FAILURE); 
@@ -29,7 +31,7 @@ int main(int argc, char* argv[]) {
 	
 	Famille *AllF = creaFamilles(All);
 	printf("\nLes familles ont été créés et réparties dans leurs répertoires respectifs.\n");  
-	afficheFamille(AllF);
+	afficheFamille(AllF, argv);
 	
 	// Affiche dans le terminal l'ensemble de ces distances
 	//afficheAll(All, argv);

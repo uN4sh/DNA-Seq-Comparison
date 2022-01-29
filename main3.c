@@ -1,7 +1,9 @@
 #include "alignement.h"
 
 int main(int argc, char* argv[]) {
-
+	char clear[6] = "clear";
+	system(clear);
+	
 	if(argc < 2) {
 		fprintf(stderr,"Erreur syntaxe : ./main2 rep\n");
 		exit(EXIT_FAILURE); 
@@ -33,7 +35,7 @@ int main(int argc, char* argv[]) {
 	
 	creaConsensus(AllF, All, argv);
 	
-	afficheFamille(AllF);		
+	afficheFamille(AllF, argv);		
 	
 	// Affiche dans le terminal l'ensemble de ces distances
 	//afficheAll(All, argv);

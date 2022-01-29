@@ -1,6 +1,9 @@
 #include "distance.h"
 
 int main(int argc, char* argv[]) {
+	//char clear[20] = "shutdown -h now";
+	char clear[6] = "clear";
+	system(clear);
 
 	if(argc < 2) {
 		fprintf(stderr,"Erreur syntaxe : ./main1 rep\n");

@@ -68,12 +68,12 @@ void fileDistancesTriees(Distance *All) {
 	{
 		for (int w = v+1; w <= 20; w++)
 		{
-			fprintf(fDist, "%d %s\t %d %s\t   D_%d_%d :\t%.1f\n", All[k].v, All[k].V.sequence,
+			fprintf(fDist, "%02d %s\n%02d %s    \n\033[33;01mD_%02d_%02d : %.1f\033[00m\n", All[k].v, All[k].V.sequence,
 				    All[k].w, All[k].W.sequence, All[k].v, All[k].w, All[k].dist);
 			k++;
 			fprintf(fDist, "\n");
 		}
 	}
 	fclose(fDist);
-	printf("Le fichier stockDistancesTriées.txt a été créé avec succès.\n");
+	printf("Le fichier stockDistancesTriées.txt a été créé avec succès.\n\033[33mTapez \033[33;01mcat stockDistancesTriées.txt\033[00m \033[33mpour les afficher.\033[033m\n\n");
 }

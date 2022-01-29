@@ -8,7 +8,6 @@ struct Famille {
 	float Dmin; // Distance Dmin associée
 	int pivot; // Pivot de la famille
 	char *seqCons; // Séquence consensus de la famille
-	
 };
 typedef struct Famille Famille;
 
@@ -28,6 +27,6 @@ int familleCheck(Distance *All, int i);
 // Renvoie 1 si toutes les séquences sont classées dans des familles (condition de fin de boucle)
 int familleAllCheck(Distance *All);
 
-void afficheFamille(Famille *AllF);
+void afficheFamille(Famille *AllF, char** argv);
 
 void libereAllFamille(Famille *AllF);

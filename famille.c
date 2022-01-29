@@ -293,17 +293,20 @@ void libereAllFamille(Famille *AllF){
 	free(AllF);
 }
 
-void afficheFamille(Famille *AllF){
+void afficheFamille(Famille *AllF, char** argv){
 	printf("\033[31;01mLes familles de séquences :\033[00m\n");
 	int i = 0;
 	while(AllF[i].taille != 0){
-			printf("\033[31;01m    Famille n°%d :\033[00m ", AllF[i].nF);
-			for (int j = 0; j < AllF[i].taille; j++)
-				printf("\033[31m%d \033[00m",AllF[i].ns[j]);
-			if(AllF[i].seqCons != NULL)
-					printf("\nSéquence consensus %d : %s", (i+1), AllF[i].seqCons);
+			printf("\033[31;01mFamille n°%d :\n\033[00m", AllF[i].nF);
+			for (int j = 0; j < AllF[i].taille; j++) {
+				//printf("\033[31m%02d\t\033[00m",AllF[i].ns[j]);
+				afficheSeq(AllF[i].ns[j], argv);
+			}
+			if(AllF[i].seqCons != NULL) {
+				printf("\033[31;01mSéquence consensus n°%d : \n  \t %s\033[00m", (i+1), AllF[i].seqCons);
+				printf("\n");
+			}
 			printf("\n");
 			i++;				
 		}		
-	printf("\n");
 }

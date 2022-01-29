@@ -3,7 +3,6 @@
 // Pour calculer le min entre 3 valeurs (Utile pour D2)
 #define min3(x,y,z) ( (x) < (min2(y, z)) ? (x):(min2(y,z)) )
 #define min2(x,y)  ( (x) < (y) ? (x):(y))
-#define max(x,y) ( x > y ? x:y)
 
 int charCompare(int cv, int cw) {
 	// Comparateur de caractères selon la matrice de distances (Pour D1)
@@ -132,6 +131,7 @@ Distance Dist2 (Distance D2) {
 
 	// On remet à présent les chaines au bon format
 	libereMemoire(D2);
+
 	D2.V.sequence = espaces(v2);
 	D2.W.sequence = espaces(w2);
 
@@ -145,14 +145,20 @@ char* espaces(char* v) {
 		if (v[i] == ' ')
 			esp++;
 	}
-
-	char* new = malloc((25-esp+1)*sizeof(char)); if(!new) exit(0);
+	int t = 25-esp+1;
+	char* new = malloc(t*sizeof(char));
 	int k = 0;
+
 	for (int i = esp; i < 25; ++i)
 	{
 		new[k] = v[i];
 		k++;
 	}
+	while(k < t) {
+		new[k] = '\0';
+		k++;
+	}
+
 	return new;
 }
 
@@ -161,7 +167,7 @@ Distance *StockDistances(char **argv, int D) {
 	// *All est un tableau de structures Distance qui stock toutes les distances & séquences associées
 	// 190 distances différentes, *All doit contenir 190 fois la taille de la structure
 	// Note : On pourrait faire un double tour de boucle avant l'allocation en incrémentant k pour la preuve des 190 distances
-	Distance *All = malloc(190*sizeof(Distance)); if(!All) exit(0);
+	Distance *All = malloc(190*sizeof(Distance));
 	for (int v = 1; v <= 19; v++) {
 		// La première boucle va jusqu'à la 19ème séquence pour la comparer avec la 20ème
 		for (int w = v+1; w <= 20; w++) {
@@ -214,17 +220,16 @@ void fileDistances (Distance *All) {
 	{
 		for (int w = v+1; w <= 20; w++)
 		{
-			if((All[k].V.sequence != NULL) && (All[k].V.sequence != NULL)) { // Bon la y'a une uninitialized value dans les %s j'arrive pas à regler..
-				fprintf(fDist, "%02d %s\n%02d %s\t  \tD_%d_%d : %.1f\n", All[k].v, All[k].V.sequence,
-					    All[k].w, All[k].W.sequence, All[k].v, All[k].w, All[k].dist);
+			fprintf(fDist, "%02d %s\n%02d %s    \n\033[33;01mD_%02d_%02d : %.1f\033[00m\n", All[k].v, All[k].V.sequence,
+				    All[k].w, All[k].W.sequence, All[k].v, All[k].w, All[k].dist);
 				
-				k++;
-				fprintf(fDist, "\n");
-			}
+			k++;
+			fprintf(fDist, "\n");
 		}
 	}
+	
 	fclose(fDist);
-	printf("Le fichier stockDistances.txt a été créé avec succès.\n");
+	printf("Le fichier stockDistances.txt a été créé avec succès.\n\033[33mTapez \033[33;01mcat stockDistances.txt\033[00m \033[33mpour les afficher.\033[033m\n\n");
 }
 
 void libereMemoire(Distance D) {
