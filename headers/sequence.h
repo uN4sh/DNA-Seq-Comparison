@@ -14,7 +14,7 @@ typedef struct Sequence Sequence;
 // Le char** argv en argument de chacune des fonctions sert à préciser le répertoire d'ouverture des fichiers
 
 FILE *openFic(int i, char** argv);
-//Ouvre le fichier associé à l'entier dans le repertoire mis en argument par l'éxecution (ici : sequences_ADN)
+//Ouvre le fichier associé à l'entier dans le repertoire mis en argument par l'éxecution (ici : DNA)
 int charCounter(int nf, char** argv);
 // Pour un numéro de séquence donnée, retourne le nombre de caractères que contient son fichier
 Sequence initSeq(int nf, char** argv);

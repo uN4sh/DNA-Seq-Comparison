@@ -1,11 +1,12 @@
-#include "famille.h"
+#include "../headers/distance.h"
 
 int main(int argc, char* argv[]) {
+	//char clear[20] = "shutdown -h now";
 	char clear[6] = "clear";
 	system(clear);
-	
+
 	if(argc < 2) {
-		fprintf(stderr,"Erreur syntaxe : ./main2 rep\n");
+		fprintf(stderr,"Erreur syntaxe : ./main1 rep\n");
 		exit(EXIT_FAILURE); 
 	}
 	
@@ -23,23 +24,16 @@ int main(int argc, char* argv[]) {
 
 	printf("\nLa distance D%d est utilisée pour le calcul.\n", D);
 	printf("Les distances et séquences associées ont toutes été stockées dans le tableau *All.\n");
-	
-	// Tri croissant des distances et création d'un fichier texte avec les distances triées
-	triFusion(All, 0, 189);
-	printf("\nLe tableau *All a été trié dans l'ordre croissant de ses distances.\n");
-	fileDistancesTriees(All);
-	
-	Famille *AllF = creaFamilles(All);
-	printf("\nLes familles ont été créés et réparties dans leurs répertoires respectifs.\n");  
-	afficheFamille(AllF, argv);
-	
+
 	// Affiche dans le terminal l'ensemble de ces distances
 	//afficheAll(All, argv);
 
-	// Libère la mémoire allouée au tableau de structures Distance et Famille
+	// Créé un fichier texte avec la mise en forme de toutes les distances
+	fileDistances(All);	
 	
+
+	// Libère la mémoire allouée au tableau de structures Distance
 	libereAll(All);
-	libereAllFamille(AllF);
-	
+
 	return EXIT_SUCCESS;
 }

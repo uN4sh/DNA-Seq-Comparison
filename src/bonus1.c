@@ -1,4 +1,4 @@
-#include "distance.h"
+#include "../headers/distance.h"
 
 int main(int argc, char** argv) {
 	if (argc < 2) {

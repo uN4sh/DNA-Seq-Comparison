@@ -1,4 +1,4 @@
-#include "famille.h"
+#include "../headers/famille.h"
 // En incluant le header famille.h, sont également inclus triFusion.h, distance.h & sequence.h
 
 Famille initFamille(int N, float Dmin, int nF, int *t, int pivot){
@@ -183,7 +183,7 @@ void familleRep(Famille F){
 	for (int i = 0; i < F.taille; i++)
 	{
 		//chaque sequence de la famille est copiee vers ce dossier
-		sprintf(cpSeq, "cp sequences_ADN/seq%02d.txt Famille%02d/seq%02d.txt",F.ns[i],F.nF,F.ns[i]);
+		sprintf(cpSeq, "cp DNA/seq%02d.txt Famille%02d/seq%02d.txt",F.ns[i],F.nF,F.ns[i]);
 		system(cpSeq);
 	}		
 } 

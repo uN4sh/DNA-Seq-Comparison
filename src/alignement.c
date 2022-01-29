@@ -1,4 +1,4 @@
-#include "alignement.h"
+#include "../headers/alignement.h"
 
 void creaConsensus(Famille *AllF, Distance *All, char** argv){
 	int i = 0;

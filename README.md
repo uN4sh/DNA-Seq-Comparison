@@ -1,72 +1,35 @@
-# 301Project
+# Comparaison de séquences d’ADN
 
-### 15.11
- 
-### 20.11
+Le but de ce projet est de comparer des séquences d’ADN entre elles en utilisant la **distance de Levenshtein** pour déterminer des **familles de séquences** (correspondant à des familles d’organismes) et en déduire la **séquence consensus** pour chacune des familles, c'est à dire la séquence dans laquelle chaque caractère correspond à la lettre rencontrée le plus fréquemment à cette position dans la famille.
 
-### 11.12
+## Implémentation
 
-### 19.12
-Bon, j'ai tout effacé parce que beaucoup de choses ont changé, voilà le résumé du programme :
+Ce projet s'organise en trois parties :
 
-#### MAKEFILE
-**make main1** : Compile l'ensemble des fichiers de la partie1
+- Une première dans laquelle **deux méthodes de calcul des distances de Levenshtein** entre les séquences ADN sont implémentées ; l'exécution de cette partie du projet génère un fichier texte rassemblant l'ensemble des 190 couples de séquences avec la distance de Levenshtein qui les sépare l'une de l'autre.
+- La deuxième partie **regroupe les séquences par familles d'organismes** partageant une distance minimale entre elles ; chacune des familles de séquence est ensuite stockée dans un même répertoire.
+- On détermine ensuite la **séquence consensus de chaque famille**, c'est à dire la séquence dans laquelle chaque caractère correspond à la lettre rencontrée le plus fréquemment à cette position dans la famille.
 
-**make run1** : Exécute la partie1
+## Compétences ciblées
 
-**make debug1** : Exécute la partie1 sous Valgrind
+- Manipulation et lecture des fichiers en C
+- Allocation et libération de la mémoire
+- Implémentation d'un algorithme adapté pour le calcul de la Distance de Levenshtein
+- Implémentation d'un algorithme de tri en C
+- Séparation d'un projet en plusieurs partie en utilisant un Makefile
 
-**make clean** : Supprime l'ensemble des fichiers .o, l'exécutable ainsi que les 2 fichiers textes créés lors de l'éxécution
+## Exécution
 
-#### DEROULEMENT
-L'exécution de la partie1 créera le fichier stockDistances.txt comprenant l'ensemble des 190 distances calculées ainsi que les séquences numérotées associées.
+- `main1` pour compiler la partie1
+- `partie1` pour l'exécuter
+- `debug1` pour l'exécuter sous Valgrind
 
-Elle ouvrira les fichiers, calculera les distances et les stockera proprement dans un tableau de 190 structures "Distance" qu'on peut faire afficher dans le terminal ou laissé dans le fichier texte créé.
+- `main2` pour compiler la partie2
+- `partie2` pour l'executer
+- `debug2` pour l'executer sous Valgrind
 
-L'ensemble de la mémoire allouée aux séquences, aux fichiers et au tableau, sera libérée.
+- `main3` pour compiler la partie3
+- `partie3` pour l'executer
+- `debug3` pour l'executer sous Valgrind
 
-> *// Note : Tout fonctionne avec la distance D1, j'ai pas touché une seule seconde à D2, bien que j'ai déjà toutes les fonctions par un subtil cambriolage*
-
-**Ebauche de partie 2 :** Fonctions de triFusion mises en oeuvre sur le tableau des distances et création d'un nouveau fichier stockDistancesTriées.txt
-
-#### SUITE 
-Il faudrait maintenant faire en sorte de partir de la distance minimum et trouver la séquence S qui a le plus de Dmin avec d'autres séquences, et en faire une famille..
-
-Ou alors faudrait faire D2 mdr..
-
-> *// Note : Je viens de me rendre compte que tu peux optimiser tes comparaisons pour réduire un peu la fonction avec un if(v==w) : return 0;    if(les cas pour 1) : return 1;    et return 2;*
-
-> *// Aussi pour ajouter les 1.5 des blancs, au lieu de faire une boucle tu peux simplement ajouter à la distance le abs(V.l, W.l)\*1.5*
-
-> *Faudrait mettre le int (n° de seq) dans la structure séquence et pas dans celle distance, et faire tous les changements nécessaires pour alléger le tout*
-
-.
-
-#### SEQUENCE.H
-**Struct Sequence :** Structure séquence comprend la longueur l de la séquence et un tableau de char pour l'ADN
-
-**openFic :** Ouvre le fichier associé à l'entier dans le repertoire mis en argument par l'éxecution (ici : sequences_ADN)
-
-**charCounter :** Pour un numéro de séquence donnée, retourne le nombre de caractères que contient son fichier
-
-**initSeq :** Initialise une séquence en lui assignant d'abord sa taille puis sa chaîne de caractères 
-
-> *// Note : double ouverture de fichier ici pour compter puis assigner. On pourrait combiner le tout en une ouverture avec un strlen() ?*
-
-**libereSeq :** Pour une structure Sequence donnée, free de la mémoire allouée à la chaîne ADN
-
-#### DISTANCE.H
-**Struct Distance :** Comprend 2 Struct Séquences (ADN & taille) + n° de séquence associé, ainsi qu'un float pour la distance
-	
-**charCompare :** Comparateur de caractères selon la matrice de distances (Pour D1)
-
-**distanceD1 :** Distance D1, retourtant une structure Distance, expliquée en détail dans le fichier distance.c
-
-**StockDistances :** Stockage de toutes les distances entre paires de séquences dans un tableau de structure Distance
-
-**afficherDistance & afficheAll** Fonctions pour l'affichage et la mise en forme de toutes les distances & séquences associées 
-
-**fileDistances :** Création d'un fichier stockDistances.txt avec l'ensemble des distances & séquences associées
-
-**libereMemoire :** Libère les 2 champs de séquences compris dans une structure Distance
-**libereAll :** Libération de mémoire de toutes les séquences dans le tableau de struct Distance
+- `clean`  nettoyer le répertoire

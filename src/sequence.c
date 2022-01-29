@@ -1,4 +1,4 @@
-#include "sequence.h"
+#include "../headers/sequence.h"
 // Les librairies stdio et stdlib sont incluses via le header sequence.h
 
 FILE *openFic(int i, char** argv) {
@@ -7,7 +7,7 @@ FILE *openFic(int i, char** argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	// Ouvre le fichier associé à l'entier dans le repertoire mis en argument par l'éxecution (ici : sequences_ADN)
+	// Ouvre le fichier associé à l'entier dans le repertoire mis en argument par l'éxecution (ici : DNA)
 	char fic[25];
 	// On écrit dans la chaîne fic le chemin d'accès au fichier de séquences 
 	sprintf(fic, "%s/seq%02d.txt", argv[1], i);

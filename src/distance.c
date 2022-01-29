@@ -1,4 +1,4 @@
-#include "distance.h"
+#include "../headers/distance.h"
 
 // Pour calculer le min entre 3 valeurs (Utile pour D2)
 #define min3(x,y,z) ( (x) < (min2(y, z)) ? (x):(min2(y,z)) )

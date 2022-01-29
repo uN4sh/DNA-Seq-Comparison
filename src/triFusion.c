@@ -1,4 +1,4 @@
-#include "triFusion.h"
+#include "../headers/triFusion.h"
 
 void fusion(Distance *All, int g, int m, int d) {
 	// On a juste deux tableau, deb à mil et mil-1 à fin, qu'on va fusionner
