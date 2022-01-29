@@ -1,6 +1,8 @@
 # Comparaison de séquences d’ADN
 
-Le but de ce projet est de comparer des séquences d’ADN entre elles en utilisant la **distance de Levenshtein** pour déterminer des **familles de séquences** (correspondant à des familles d’organismes) et en déduire la **séquence consensus** pour chacune des familles, c'est à dire la séquence dans laquelle chaque caractère correspond à la lettre rencontrée le plus fréquemment à cette position dans la famille.
+> Novembre 2019, projet de deuxième année de Licence Informatique @ UVSQ
+
+Le but de ce projet est de comparer des séquences d’ADN entre elles en utilisant la [**distance de Levenshtein**](https://en.wikipedia.org/wiki/Levenshtein_distance) pour déterminer des **familles de séquences** (correspondant à des familles d’organismes) et en déduire la [**séquence consensus**](https://fr.wikipedia.org/wiki/S%C3%A9quence_consensus) pour chacune des familles, c'est à dire la séquence dans laquelle chaque caractère correspond à la lettre rencontrée le plus fréquemment à cette position dans la famille.
 
 ## Implémentation
 
